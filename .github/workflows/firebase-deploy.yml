@@ -20,7 +20,7 @@ jobs:
                     node-version: 18 # so the node-version is being passed to the actions/setup-node@4 action
             
             -   name: Install Dependencies
-                run: npm Install # the run command is used to execute shell commands in the workflow
+                run: npm install # the run command is used to execute shell commands in the workflow
 
             -   name: Build React App
                 run: npm run build
