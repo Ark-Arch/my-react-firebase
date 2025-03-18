@@ -1,0 +1,33 @@
+name: Deploy to Firebase Hosting
+
+on:
+    push:
+        branches:
+            - main # this workflow is only triggered when changes are pushed to the main branch
+
+jobs:
+    build_and_deploy: # this is a custom name for the job i want executed
+                      # I could have also broken this job into two jobs => build, and deploy
+        runs-on: ubuntu-latest # this decides the temporary vm it needs to configure for the work
+
+        steps:
+            -   name: Checkout Repository # note also that name is not a keyword
+                uses: actions/checkout@v4  # this is an already existing github action that gives the workflow access to my repo's code
+            
+            -   name: Set up Node.js
+                uses: actions/setup-node@v4 # this existing action installs Node.js and npm
+                with: # the with command is used to pass input parameters to an action.
+                    node-version: 18 # so the node-version is being passed to the actions/setup-node@4 action
+            
+            -   name: Install Dependencies
+                run: npm Install # the run command is used to execute shell commands in the workflow
+
+            -   name: Build React App
+                run: npm run build
+
+            -   name: Deploy to Firebase
+                uses: w9jds/firebase-action@master # you can search for existing actions in the github action market place (https://github.com/marketplace?query=vercel&type=actions)
+                with:
+                    args: deploy --only Hosting
+                env:
+                    FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
