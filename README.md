@@ -17,3 +17,6 @@ With this repository, I describe my journey l
 ### RESULTS:
 the hosting URL of the deployed application
 https://react-firebase-b1434.web.app/ 
+
+
+![alt text](image.png)
